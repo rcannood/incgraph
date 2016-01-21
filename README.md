@@ -3,12 +3,12 @@ incgraph
 
 [![Build Status](https://travis-ci.org/rcannood/incgraph.png?branch=master)](https://travis-ci.org/rcannood/incgraph)
 
-IncGraph incrementally calculates the differences in orbit counts when performing single edge modifications in a network. For evolving networks, calculating the differences in orbit counts is much more performant than recalculating all orbit counts from scratch for each time point.
+incgraph incrementally calculates the differences in orbit counts when performing single edge modifications in a network. For evolving networks, calculating the differences in orbit counts is much more performant than recalculating all orbit counts from scratch for each time point.
 
 Install
 -------
 
-IncGraph currently needs to be installed using devtools. When building for Windows, the correct version of Rtools also needs to be installed.
+incgraph currently needs to be installed using devtools. When building for Windows, the correct version of Rtools also needs to be installed.
 
 ``` r
 devtools::install_github("rcannood/incgraph")
