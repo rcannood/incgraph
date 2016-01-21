@@ -11,7 +11,7 @@ Install
 IncGraph currently needs to be installed using devtools. When building for Windows, the correct version of Rtools also needs to be installed.
 
 ``` r
-devtools::install_github("rcannood/IncGraph")
+devtools::install_github("rcannood/incgraph")
 ```
 
 Examples
