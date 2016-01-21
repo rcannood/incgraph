@@ -1,6 +1,6 @@
 Package: incgraph
 Type: Package
-Title: incgraph: a graphlet-based approach for characterising topological
+Title: incgraph: graphlet-based approach for characterising topological
     changes in evolving networks
 Version: 1.0
 Date: 2015-04-09
@@ -9,7 +9,7 @@ Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
 Description: incgraph incrementally calculates the differences in orbit counts
     when performing single edge modifications in a network. For evolving networks,
     calculating the differences in orbit counts is much more performant than
-    recalculating all orbit counts from scratch for each time point.
+    recalculating all orbit counts from scratch for each time point. 
 License: GPL-3
 Imports:
     methods,
