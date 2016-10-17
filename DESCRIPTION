@@ -9,15 +9,16 @@ Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
 Description: incgraph incrementally calculates the differences in orbit counts
     when performing single edge modifications in a network. For evolving networks,
     calculating the differences in orbit counts is much more performant than
-    recalculating all orbit counts from scratch for each time point. 
+    recalculating all orbit counts from scratch for each time point.
 License: GPL-3
 Imports:
     methods,
     Rcpp (>= 0.11.4),
-    orca
+    orca,
+    dplyr
 LinkingTo: Rcpp, BH
 Encoding: UTF-8
 Packaged: 2015-04-10 10:34:25 UTC; rcannood
-URL: http://www.github.com/rcannood/IncGraph
-BugReports: https://github.com/rcannood/IncGraph/issues
+URL: http://www.github.com/rcannood/incgraph
+BugReports: https://github.com/rcannood/incgraph/issues
 RoxygenNote: 5.0.1
