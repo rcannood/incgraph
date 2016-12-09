@@ -57,8 +57,8 @@ public:
     if ((long long)amntNodes*amntNodes < 1024LL*1024*1024*8) {
       neighbours_matrix = (int*)calloc((amntNodes*amntNodes)/adj_chunk+1,sizeof(int));
     }
-  } 
-  
+  }
+
   void setNetwork(IntegerMatrix linkMatrix) {
     reset();
     for (int i = 0; i < linkMatrix.nrow(); ++i) {
@@ -76,25 +76,25 @@ public:
       }
     }
   }
-  
+
   bool contains(int x, int y) {
     if (neighbours_matrix != NULL)
       return neighbours_matrix[(x*amntNodes+y)/adj_chunk]>>((x*amntNodes+y)%adj_chunk) & 1;
     else
-      return neighbours[x].find(y) != neighbours[x].end(); 
+      return neighbours[x].find(y) != neighbours[x].end();
   }
-  
+
   bool containsInt(int x, int y) {
     if (neighbours_matrix != NULL)
       return neighbours_matrix[(x*amntNodes+y)/adj_chunk]>>((x*amntNodes+y)%adj_chunk) & 1;
     else
-      return neighbours[x].find(y) != neighbours[x].end()?1:0; 
+      return neighbours[x].find(y) != neighbours[x].end()?1:0;
   }
-  
+
   IntegerVector getNeighbours(int x) {
     return wrap(neighbours[x]);
   }
-  
+
   void flip(int x, int y) {
     if (contains(x, y)) {
       fs::iterator itx = neighbours[x].find(y);
@@ -105,22 +105,22 @@ public:
       neighbours[x].insert(y);
       neighbours[y].insert(x);
     }
-    
+
     if (neighbours_matrix != NULL) {
       neighbours_matrix[(x*amntNodes+y)/adj_chunk] ^= (1<<((x*amntNodes+y)%adj_chunk));
       neighbours_matrix[(y*amntNodes+x)/adj_chunk] ^= (1<<((y*amntNodes+x)%adj_chunk));
     }
   }
-  
+
   List calculateDelta(int i0, int i1) {
     IntegerMatrix delta_add_mat(amntNodes, 73);
     IntegerMatrix delta_rem_mat(amntNodes, 73);
-    
+
     int *nodes = new int[5]();
     bool *taken0 = new bool[amntNodes]();
     bool *taken1 = new bool[amntNodes]();
     bool *taken2 = new bool[amntNodes]();
-    
+
     int mod0, mod1;
     if (!contains(i0, i1)) {
       mod0 = 1;
@@ -129,95 +129,91 @@ public:
       mod0 = 0;
       mod1 = 1;
     }
-    
+
     nodes[0] = i0;
     nodes[1] = i1;
-    
+
     UpdateOrbits(delta_add_mat, delta_rem_mat, nodes, 0, mod0, mod1);
-    
+
     for (int i = 0; i < amntNodes; ++i) {
       taken0[i] = false;
     }
-    
+
     taken0[i0] = true;
     taken0[i1] = true;
-    
+
     for (int j0 = 0; j0 < 2; ++j0) {
       fs nn2 = neighbours[nodes[j0]];
       for (fsi iter2 = nn2.begin(); iter2 != nn2.end(); ++iter2) {
         int i2 = *iter2;
-      //for (int i2 : neighbours[nodes[j0]]) {
         if (!taken0[i2]) {
           nodes[2] = i2;
           taken0[i2] = true;
-          
-          int x1 = 
+
+          int x1 =
             W(i0, i2, 2) +
             W(i1, i2, 4);
-          
+
           UpdateOrbits(delta_add_mat, delta_rem_mat, nodes, x1, mod0, mod1);
           memcpy(taken1, taken0, sizeof(bool) * amntNodes);
-  
+
           for (int j1 = 0; j1 < 3; ++j1) {
             fs nn3 = neighbours[nodes[j1]];
             for (fsi iter3 = nn3.begin(); iter3 != nn3.end(); ++iter3) {
               int i3 = *iter3;
-            //for (int i3 : neighbours[nodes[j1]]) {
               if (!taken1[i3]) {
                 nodes[3] = i3;
                 taken1[i3] = true;
-                
+
                 int x2 = x1 +
                   W(i0, i3, 8) +
                   W(i1, i3, 16) +
                   W(i2, i3, 32);
-                
+
                 UpdateOrbits(delta_add_mat, delta_rem_mat, nodes, x2, mod0, mod1);
                 memcpy(taken2, taken1, sizeof(bool) * amntNodes);
-        
+
                 for (int j2 = 0; j2 < 4; ++j2) {
-                  //for (int i4 :  neighbours[nodes[j2]]) {
                   fs nn4 = neighbours[nodes[j2]];
                   for (fsi iter4 = nn4.begin(); iter4 != nn4.end(); ++iter4) {
                     int i4 = *iter4;
                     if (!taken2[i4]) {
                       nodes[4] = i4;
                       taken2[i4] = true;
-  
+
                       int x3 = x2 +
                         W(i0, i4, 64) +
                         W(i1, i4, 128) +
                         W(i2, i4, 256) +
                         W(i3, i4, 512);
-                      
+
                       UpdateOrbits(delta_add_mat, delta_rem_mat, nodes, x3, mod0, mod1);
                     }
                   }
                 }
-  
               }
             }
           }
         }
       }
     }
-    
+
     delete[] nodes;
     delete[] taken0;
     delete[] taken1;
     delete[] taken2;
-    
+
     return List::create(
       _["add"] = delta_add_mat,
       _["rem"] = delta_rem_mat
     );
   }
-  
+
   int amntNodes;
 private:
   fs *neighbours;
   int *neighbours_matrix; // compressed adjacency matrix
-  
+
   int w(int i0, int i1, int w) {
     return containsInt(i0, i1)*w;
   }
@@ -227,11 +223,11 @@ private:
 RCPP_EXPOSED_CLASS(IncGraphModule)
 RCPP_MODULE(IncGraphModule) {
   class_<IncGraphNetwork>( "incgraph.network" )
-  
+
   .constructor<int>( "Create a new IncGraph network" )
-  
+
   .field( "amnt.nodes", &IncGraphNetwork::amntNodes )
-  
+
   .method ( "reset", &IncGraphNetwork::reset, "Reinitialise all data structures" )
   .method ( "set.network", &IncGraphNetwork::setNetwork, "Load a given network into the data structures" )
   .method ( "calculate.delta", &IncGraphNetwork::calculateDelta, "Calculate the delta matrix for a given edge modification" )

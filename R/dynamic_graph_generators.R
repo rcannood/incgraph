@@ -257,17 +257,17 @@ generate.erdosrenyi <- function(amnt.nodes, amnt.edges, amnt.operations, trace =
     operations <- data.frame(type = character(), i = numeric(), j = numeric())
     while (nrow(operations) < amnt.operations) {
       if (trace)  cat("Ops progress: ", nrow(operations), "/", amnt.operations, "\n", sep="")
-      rem.y <- sample.int(length(xs), 1)
+      rem.y <- sample.int(length(ix), 1)
       operations <- rbind(operations, data.frame(op = "REM", edges[rem.y,]))
       edges <- edges[-rem.y,]
-      xs <- xs[-rem.y]
+      ix <- ix[-rem.y]
 
-      add.y <- sample(seq_len(max.x)[-xs], 1)
+      add.y <- sample(seq_len(max.x)[-ix], 1)
       i <- min(which(v >= add.y))+1
       j <- add.y - ifelse(i > 2, v[[i-2]], 0)
       edge <- data.frame(i, j)
       edges <- rbind(edges, edge)
-      xs <- c(xs, add.y)
+      ix <- c(ix, add.y)
       operations <- rbind(operations, data.frame(op = "ADD", edge))
     }
   })
