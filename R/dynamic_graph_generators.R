@@ -240,38 +240,39 @@ generate.erdosrenyi <- function(amnt.nodes, amnt.edges, amnt.operations, trace =
   if (amnt.edges > amnt.nodes * (amnt.nodes - 1) / 2)
     stop("amnt.edges should be less than or equal to amnt.nodes * (amnt.nodes-1) / 2")
 
-  initialisation.t <- system.time({
-    v <- seq_len(amnt.nodes)
-    v <- v * (v-1) / 2
-    max.v <- utils::tail(v, 1)
-    ix <- sample.int(max.v, amnt.edges)
-    i <- sapply(ix, function(i) min(which(v >= i)))
+  initialisation.t <-
+    system.time({
+      v <- sapply(1:(amnt.nodes-1), function(i) i * (i+1) / 2)
+      max.x <- max(v)
+      xs <- sample(1:max.x, amnt.edges, replace=F)
 
-    ii <- sapply(ix, function(ixi) {
-      gtools::binsearch( function(x) i[[x]]-ixi, range=seq_along(i) )
+      edges <- dplyr::bind_rows(lapply(xs, function(x) {
+        i <- min(which(v >= x))+1
+        j <- x - ifelse(i > 2, v[[i-2]], 0)
+        data.frame(i=i, j=j)
+      }))
+
+      original.network <- edges
     })
 
-  })
+  operations.t <-
+    system.time({
+      operations <- data.frame(type=character(), i=numeric(), j=numeric())
+      while (nrow(operations) < amnt.operations) {
+        rem.y <- sample(1:length(xs), 1)
+        operations <- rbind(operations, data.frame(op="REM", edges[rem.y,]))
+        edges <- edges[-rem.y,]
+        xs <- xs[-rem.y]
 
-  operations.t <- system.time({
-    operations <- data.frame(type = character(), i = numeric(), j = numeric())
-    while (nrow(operations) < amnt.operations) {
-      if (trace)  cat("Ops progress: ", nrow(operations), "/", amnt.operations, "\n", sep="")
-      rem.y <- sample.int(length(ix), 1)
-      operations <- rbind(operations, data.frame(op = "REM", edges[rem.y,]))
-      edges <- edges[-rem.y,]
-      ix <- ix[-rem.y]
-
-      add.y <- sample(seq_len(max.x)[-ix], 1)
-      i <- min(which(v >= add.y))+1
-      j <- add.y - ifelse(i > 2, v[[i-2]], 0)
-      edge <- data.frame(i, j)
-      edges <- rbind(edges, edge)
-      ix <- c(ix, add.y)
-      operations <- rbind(operations, data.frame(op = "ADD", edge))
-    }
-  })
-
+        add.y <- sample((1:max.x)[-xs], 1)
+        i <- min(which(v >= add.y))+1
+        j <- add.y - ifelse(i > 2, v[[i-2]], 0)
+        edge <- data.frame(i=i, j=j)
+        edges <- rbind(edges, edge)
+        xs <- c(xs, add.y)
+        operations <- rbind(operations, data.frame(op="ADD", edge))
+      }
+    })
   timings <- data.frame(initialisation = initialisation.t[["elapsed"]], operations = operations.t[["elapsed"]])
 
   list(network = original.network, operations = operations, timings = timings)
