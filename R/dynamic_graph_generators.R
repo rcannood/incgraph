@@ -93,8 +93,8 @@ generate.geometric <- function(amnt.nodes, amnt.edges, amnt.operations, amnt.dim
       new.bin <- sum(bins[node,] * row.mult)
       bin.ids[[node]] <- new.bin
 
-      rem.bins <- check.bins[[prev.bin+1]]
-      add.bins <- check.bins[[new.bin+1]]
+      rem.bins <- check.bins[[prev.bin]]+1
+      add.bins <- check.bins[[new.bin]]+1
 
       recalculate.bins <- unique(c(add.bins, rem.bins))
       dists.between.bins[recalculate.bins+1] <- lapply(recalculate.bins, function(bin.i) {
