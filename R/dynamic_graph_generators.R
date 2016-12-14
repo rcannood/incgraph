@@ -68,10 +68,10 @@ generate.geometric <- function(amnt.nodes, amnt.edges, amnt.operations, amnt.dim
     dists.between.bins <- lapply(seq_along(binned.idx), function(bin.i) {
       df <- expand.grid(
         i = binned.idx[[bin.i]],
-        target = unlist(binned.idx[check.bins[[bin.i]]+1])
+        j = unlist(binned.idx[check.bins[[bin.i]]+1])
       )
-      df <- df[df$i < df$target,,drop=F]
-      df$dist <- sqrt(rowSums((locations[df$i,,drop=F] - locations[df$target,,drop=F])^2))
+      df <- df[df$i < df$j,,drop=F]
+      df$dist <- sqrt(rowSums((locations[df$i,,drop=F] - locations[df$j,,drop=F])^2))
       df
     })
 
