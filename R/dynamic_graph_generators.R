@@ -100,10 +100,10 @@ generate.geometric <- function(amnt.nodes, amnt.edges, amnt.operations, amnt.dim
       dists.between.bins[recalculate.bins+1] <- lapply(recalculate.bins, function(bin.i) {
         df <- expand.grid(
           i = binned.idx[[bin.i]],
-          target = unlist(binned.idx[check.bins[[bin.i]]+1])
+          j = unlist(binned.idx[check.bins[[bin.i]]+1])
         )
-        df <- df[df$i < df$target,,drop=F]
-        df$dist <- sqrt(rowSums((locations[df$i,,drop=F] - locations[df$target,,drop=F])^2))
+        df <- df[df$i < df$j,,drop=F]
+        df$dist <- sqrt(rowSums((locations[df$i,,drop=F] - locations[df$j,,drop=F])^2))
         df
       })
 
@@ -119,7 +119,7 @@ generate.geometric <- function(amnt.nodes, amnt.edges, amnt.operations, amnt.dim
       new.operations <- dplyr::bind_rows(tmp.new.df, tmp.cur.df)
       new.operations <- new.operations[is.na(new.operations$ADD) != is.na(new.operations$REM),,drop=F]
       new.operations$type <- factor(ifelse(is.na(new.operations$ADD), "REM", "ADD"), levels = c("ADD", "REM"))
-      new.operations <- new.operations[sample.int(nrow(new.operations)),c("i", "target", "type")]
+      new.operations <- new.operations[sample.int(nrow(new.operations)),c("i", "j", "type")]
 
       operations.df <- dplyr::bind_rows(operations.df, new.operations)
       current.df <- new.df
