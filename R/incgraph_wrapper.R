@@ -231,6 +231,46 @@ calculate.orbit.counts <- function(network) {
   }))
 }
 
+#' @title Modify edge
+#'
+#' @description
+#' \code{orca.halfdelta} calculates the orca counts for a network that has just been changed.
+#'
+#' @usage
+#' orca.halfdelta(network, i, j)
+#'
+#' @param network An instance of the incgraph.network class
+#' @param i A node in \code{network}
+#' @param j A node in \code{network}
+#' @useDynLib incgraph
+#' @import methods Rcpp
+#' @export
+orca.halfdelta <- function(network, i, j) {
+  network.check(network)
+  node.id.check(network, i, var.name="i")
+  node.id.check(network, j, var.name="j")
+  # todo: include orca code in own cpp file?
+  amnt.nodes <- network$amnt.nodes
+  mat <- network.as.matrix(network)
+  if (network$contains(i-1, j-1)) {
+    filt <- (mat[,1] == i & mat[,2] == j) | (mat[,1] == j & mat[,2] == i)
+    mat <- mat[!filt,,drop=F]
+  } else {
+    mat <- rbind(mat, c(i,j))
+  }
+
+  elems <- mat
+  dim(elems) <- NULL
+  elems <- unique(elems)
+  map <- match(seq_len(amnt.nodes), elems)
+  new.mat <- apply(mat, c(1,2), function(x) map[x])
+  orbit.counts <- orca::count5(new.mat)
+  do.call("rbind", lapply(map, function(x) {
+    if(is.na(x)) rep.int(0, 73) else orbit.counts[x,]
+  }))
+
+}
+
 #' @title Calculate changes in orbit counts
 #'
 #' @description
