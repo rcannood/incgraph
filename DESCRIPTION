@@ -1,16 +1,17 @@
 Package: incgraph
 Type: Package
-Title: incgraph: graphlet-based approach for characterising topological
-    changes in evolving networks
+Title: incremental graphlet counting for network optimisation
 Version: 1.0
-Date: 2015-04-09
+Date: 2017-10-02
 Author: Robrecht Cannoodt
 Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
 Description: incgraph incrementally calculates the differences in orbit counts
-    when performing single edge modifications in a network. For evolving networks,
-    calculating the differences in orbit counts is much more performant than
+    when performing single edge modifications in a network. 
+    Calculating the differences in orbit counts is much more efficient than
     recalculating all orbit counts from scratch for each time point.
 License: GPL-3
+Depends:
+    R (>= 3.2)
 Imports:
     methods,
     Rcpp (>= 0.11.4),
@@ -18,7 +19,6 @@ Imports:
     dplyr
 LinkingTo: Rcpp, BH
 Encoding: UTF-8
-Packaged: 2015-04-10 10:34:25 UTC; rcannood
 URL: http://www.github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
 RoxygenNote: 6.0.1
