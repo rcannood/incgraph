@@ -5,9 +5,9 @@ Version: 1.0
 Date: 2017-10-02
 Author: Robrecht Cannoodt
 Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
-Description: This package incrementally calculates the differences in orbit counts
-    when performing single edge modifications in a network. 
-    Calculating the differences in orbit counts is much more efficient than
+Description: An efficient and incremental approach for calculating 
+    the differences in orbit counts when performing single edge modifications 
+    in a network. Calculating the differences in orbit counts is much more efficient than
     recalculating all orbit counts from scratch for each time point.
 License: GPL-3
 Depends:
