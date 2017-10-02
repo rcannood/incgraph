@@ -1,11 +1,11 @@
 Package: incgraph
 Type: Package
-Title: incremental graphlet counting for network optimisation
+Title: Incremental Graphlet Counting for Network Optimisation
 Version: 1.0
 Date: 2017-10-02
 Author: Robrecht Cannoodt
 Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
-Description: incgraph incrementally calculates the differences in orbit counts
+Description: This package incrementally calculates the differences in orbit counts
     when performing single edge modifications in a network. 
     Calculating the differences in orbit counts is much more efficient than
     recalculating all orbit counts from scratch for each time point.
