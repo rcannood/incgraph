@@ -24,9 +24,6 @@ the network such that node \code{i} has orbit \code{j} in that subgraph.
 \details{
 This method iterates over and counts all graphlets which were added to or removed from the network due to one edge modification.
 }
-\author{
-Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
-}
 \references{
 Cannoodt, R. et al. (2015) IncGraph: A graphlet-based approach for characterising
 topological changes in evolving networks. Submitted to Bioinformatics.
@@ -34,4 +31,6 @@ topological changes in evolving networks. Submitted to Bioinformatics.
 \seealso{
 See \code{\link{new.incgraph.network}} for examples and usage.
 }
-
+\author{
+Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
+}

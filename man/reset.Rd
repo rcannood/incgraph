@@ -15,4 +15,3 @@ reset(network)
 \seealso{
 See \code{\link{new.incgraph.network}} for examples and usage.
 }
-

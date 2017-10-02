@@ -21,4 +21,4 @@ Encoding: UTF-8
 Packaged: 2015-04-10 10:34:25 UTC; rcannood
 URL: http://www.github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

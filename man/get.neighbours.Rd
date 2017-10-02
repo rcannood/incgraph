@@ -20,4 +20,3 @@ Returns all neighbours of node \code{i}
 \seealso{
 See \code{\link{new.incgraph.network}} for examples and usage.
 }
-

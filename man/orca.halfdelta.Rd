@@ -16,4 +16,3 @@ orca.halfdelta(network, i, j)
 \description{
 \code{orca.halfdelta} calculates the orca counts for a network that has just been changed.
 }
-

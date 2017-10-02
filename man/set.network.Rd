@@ -21,4 +21,3 @@ the usage of \code{\link{flip}} is recommended.
 \seealso{
 See \code{\link{new.incgraph.network}} for examples and usage.
 }
-

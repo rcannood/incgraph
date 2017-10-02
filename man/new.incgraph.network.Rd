@@ -81,9 +81,6 @@ reset(net)
 network.as.matrix(net)
 
 }
-\author{
-Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
-}
 \references{
 Cannoodt, R. et al. (2015)
 IncGraph: A graphlet-based approach for characterising
@@ -92,4 +89,6 @@ topological changes in evolving networks. Submitted to Bioinformatics.
 \seealso{
 \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
 }
-
+\author{
+Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
+}

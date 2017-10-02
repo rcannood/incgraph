@@ -30,4 +30,3 @@ Hočevar, T. and Demšar J. (2014) A combinatorial approach to graphlet counting
 \seealso{
 See \code{\link{new.incgraph.network}} for examples and usage.
 }
-
