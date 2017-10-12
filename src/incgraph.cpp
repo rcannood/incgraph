@@ -207,7 +207,6 @@ public:
 
   void reset() {
     if (neighbours != NULL) {
-      //std::cout << "Deleting old neighbours" << std::endl;
       delete[] neighbours;
       neighbours = NULL;
     }
@@ -217,8 +216,8 @@ public:
     }
     neighbours = new fs[amntNodes]();
     if ((long long)amntNodes*amntNodes < 1024LL*1024*1024*8) {
-      //neighbours_matrix = (int*)calloc((amntNodes*amntNodes)/adj_chunk+1,sizeof(int));
-      neighbours_matrix = new int[amntNodes*amntNodes/adj_chunk+1];
+      neighbours_matrix = new int[amntNodes*amntNodes/adj_chunk+1]();
+
     }
   }
 

@@ -60,7 +60,12 @@
 #' @seealso \code{\link{new.incgraph.network}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
 #'
 #' @useDynLib incgraph
-#' @import methods Rcpp
+#'
+#' @import methods
+#' @import Rcpp
+#' @import dplyr
+#' @import tibble
+#' @importFrom purrr %>% map map_df map_chr map_lgl map_int map_dbl keep set_names
 #'
 #' @docType package
 #' @name incgraph

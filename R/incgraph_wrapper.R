@@ -235,7 +235,7 @@ orca.halfdelta <- function(network, i, j) {
   network.check(network)
   node.id.check(network, i, var.name="i")
   node.id.check(network, j, var.name="j")
-  # todo: include orca code in own cpp file?
+
   amnt.nodes <- network$amnt.nodes
   mat <- network.as.matrix(network)
   if (network$contains(i-1, j-1)) {
@@ -252,7 +252,11 @@ orca.halfdelta <- function(network, i, j) {
   new.mat <- apply(mat, c(1,2), function(x) map[x])
   orbit.counts <- orca::count5(new.mat)
   do.call("rbind", lapply(map, function(x) {
-    if(is.na(x)) rep.int(0, 73) else orbit.counts[x,]
+    if (is.na(x)) {
+      rep.int(0, 73)
+    } else {
+      orbit.counts[x,]
+    }
   }))
 
 }
@@ -286,7 +290,10 @@ calculate.delta <- function(network, i, j) {
   network.check(network)
   node.id.check(network, i, var.name="i")
   node.id.check(network, j, var.name="j")
-  network$calculate.delta(i-1, j-1)
+  out <- network$calculate.delta(i-1, j-1)
+  colnames(out$add) <- paste0("O", seq_len(73)-1)
+  colnames(out$rem) <- paste0("O", seq_len(73)-1)
+  out
 }
 
 #' @title Neighbours
@@ -307,7 +314,7 @@ calculate.delta <- function(network, i, j) {
 get.neighbours <- function(network, i) {
   network.check(network)
   node.id.check(network, i, var.name="i")
-  network$get.neighbours(i-1)
+  network$get.neighbours(i-1)+1
 }
 
 #' @title Contains
