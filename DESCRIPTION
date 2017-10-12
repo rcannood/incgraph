@@ -1,7 +1,7 @@
 Package: incgraph
 Type: Package
 Title: Incremental Graphlet Counting for Network Optimisation
-Version: 1.0
+Version: 1.0.1
 Date: 2017-10-02
 Author: Robrecht Cannoodt
 Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
