@@ -1,10 +1,15 @@
 Package: incgraph
 Type: Package
 Title: Incremental Graphlet Counting for Network Optimisation
-Version: 1.0.1
-Date: 2017-10-02
-Author: Robrecht Cannoodt
-Maintainer: Robrecht Cannoodt <robrecht.cannoodt@gmail.com>
+Version: 1.0.2
+Authors@R: c(
+    person(
+      "Robrecht", "Cannoodt", 
+      email = "rcannood@gmail.com", 
+      role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0003-3641-729X", github = "rcannood")
+    )
+  )
 Description: An efficient and incremental approach for calculating 
     the differences in orbit counts when performing single edge modifications 
     in a network. Calculating the differences in orbit counts is much more efficient than
