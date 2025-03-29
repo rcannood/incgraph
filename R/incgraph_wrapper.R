@@ -1,15 +1,19 @@
 loadModule("IncGraphModule", TRUE)
 
 network.check <- function(network) {
-  if (class(network) != "Rcpp_incgraph.network")
+  if (!inherits(network, "Rcpp_incgraph.network")) {
     stop("network must be created by new.network or matrix.as.network.")
+  }
 }
 node.id.check <- function(network, i, var.name) {
-  if (i <= 0 || network$amnt.nodes < i)
+  if (i <= 0 || network$amnt.nodes < i) {
     stop(var.name, " must have a value between 1 and ", network$amnt.nodes)
+  }
 }
 amnt.nodes.check <- function(amnt.nodes) {
-  if (amnt.nodes < 1) stop("The network must contain at least 1 node.")
+  if (amnt.nodes < 1) {
+    stop("The network must contain at least 1 node.")
+  }
 }
 links.check <- function(links, amnt.nodes) {
   if (!all(0 < links & links <= amnt.nodes))
@@ -19,7 +23,6 @@ links.check <- function(links, amnt.nodes) {
       ", each row representing one edge in the network."
     )
 }
-
 
 #' @title IncGraph network
 #'
