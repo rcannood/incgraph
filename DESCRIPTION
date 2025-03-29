@@ -26,7 +26,7 @@ Suggests:
     testthat (>= 3.0.0)
 LinkingTo: Rcpp, BH
 Encoding: UTF-8
-URL: https://www.github.com/rcannood/incgraph
+URL: https://github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
