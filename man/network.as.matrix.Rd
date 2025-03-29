@@ -13,5 +13,5 @@ network.as.matrix(network)
 \code{network.as.matrix} returns the network as a matrix
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

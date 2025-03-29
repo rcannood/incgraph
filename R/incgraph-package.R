@@ -57,7 +57,7 @@
 #' @references Cannoodt, R. et al. (2017)
 #' IncGraph: incremental graphlet counting for network optimisation. Under submission.
 #'
-#' @seealso \code{\link{new.incgraph.network}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
+#' @seealso [new.incgraph.network()], [calculate.orbit.counts()], [calculate.delta()]
 #'
 #' @useDynLib incgraph
 #'

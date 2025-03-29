@@ -67,7 +67,7 @@ Cannoodt, R. et al. (2017)
 IncGraph: incremental graphlet counting for network optimisation. Under submission.
 }
 \seealso{
-\code{\link{new.incgraph.network}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
+\code{\link[=new.incgraph.network]{new.incgraph.network()}}, \code{\link[=calculate.orbit.counts]{calculate.orbit.counts()}}, \code{\link[=calculate.delta]{calculate.delta()}}
 }
 \author{
 Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}

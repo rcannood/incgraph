@@ -18,5 +18,5 @@ Returns all neighbours of node \code{i}
 \code{get.neighbours} returns a vector of all neighbours of \code{i}.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

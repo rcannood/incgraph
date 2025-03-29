@@ -30,3 +30,4 @@ Encoding: UTF-8
 URL: http://www.github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
 RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)

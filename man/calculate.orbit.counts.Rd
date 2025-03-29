@@ -17,10 +17,10 @@ The value of \code{mat[i,j]} is the number of times node \code{i} has orbit \cod
 \code{calculate.orbit.counts} calculates the orbit counts of the current network.
 }
 \details{
-The complete orbit counts is calcucated using the [orca::count5()].
+The complete orbit counts is calcucated using the \code{\link[orca:orca]{orca::count5()}}.
 
 Calling this method repeatedly becomes very inefficient for evolving networks. For evolving networks, the usage
-of \code{\link{calculate.delta}} is recommended.
+of \code{\link[=calculate.delta]{calculate.delta()}} is recommended.
 
 For more details on this method, see Hočevar and Demšar (2014).
 }
@@ -28,5 +28,5 @@ For more details on this method, see Hočevar and Demšar (2014).
 Hočevar, T. and Demšar J. (2014) A combinatorial approach to graphlet counting. Bioinformatics.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

@@ -4,16 +4,16 @@
 #' generate.dynamic.network(
 #'   model, amnt.nodes, amnt.edges, amnt.operations, trace = T, ...)
 #'
-#' @param model The network model with which to generate the network; \code{"BA"} for Barabási–Albert, \code{"ER"} for Erdős–Rényi, or \code{"GEO"} for geometric
+#' @param model The network model with which to generate the network; `"BA"` for Barabási–Albert, `"ER"` for Erdős–Rényi, or `"GEO"` for geometric
 #' @param amnt.nodes the number of nodes in the network at any given type
 #' @param amnt.edges the number of edges in the network at any given type
 #' @param amnt.operations the number of edge additions/deletions to generate
-#' @param trace will print output text if \code{TRUE}
+#' @param trace will print output text if `TRUE`
 #' @param amnt.dimensions (only GEO) the number of dimensions in which to operate
 #' @param offset.exponent (only BA) the offset exponent for the weighted sampling
 #' @param ... extra parameters to pass to a specific network generator
 #'
-#' @return A list containing the starting network \code{network} and the dynamic operations peformed on it \code{operations}.
+#' @return A list containing the starting network `network` and the dynamic operations peformed on it `operations`.
 #' @export
 #'
 #' @rdname generate.dynamic.network

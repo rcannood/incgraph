@@ -13,5 +13,5 @@ reset(network)
 \code{reset} resets all the data structures so that all edges are removed from the network.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }
