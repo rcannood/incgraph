@@ -2,7 +2,7 @@
 #'
 #' @usage
 #' generate.dynamic.network(
-#'   model, amnt.nodes, amnt.edges, amnt.operations, trace = T, ...)
+#'   model, amnt.nodes, amnt.edges, amnt.operations, trace = TRUE, ...)
 #'
 #' @param model The network model with which to generate the network; `"BA"` for Barabási–Albert, `"ER"` for Erdős–Rényi, or `"GEO"` for geometric
 #' @param amnt.nodes the number of nodes in the network at any given type
@@ -27,7 +27,7 @@ generate.dynamic.network <- function(
   amnt.nodes,
   amnt.edges,
   amnt.operations,
-  trace = T,
+  trace = TRUE,
   ...
 ) {
   generate.dynnet <- switch(
@@ -49,7 +49,7 @@ generate.geometric <- function(
   amnt.edges,
   amnt.operations,
   amnt.dimensions = 3,
-  trace = T
+  trace = TRUE
 ) {
   if (amnt.nodes > 24000)
     stop("This function currently does not support amnt.nodes > 24000")
@@ -60,7 +60,7 @@ generate.geometric <- function(
     )
 
     idx <- matrix(
-      sample.int(nrow(locations), 2 * 1000000, replace = T),
+      sample.int(nrow(locations), 2 * 1000000, replace = TRUE),
       ncol = 2
     )
     idx <- idx[idx[, 1] != idx[, 2], ]
@@ -105,16 +105,16 @@ generate.geometric <- function(
         i = binned.idx[[bin.i]],
         j = unlist(binned.idx[check.bins[[bin.i]] + 1])
       )
-      df <- df[df$i < df$j, , drop = F]
+      df <- df[df$i < df$j, , drop = FALSE]
       df$dist <- sqrt(rowSums(
-        (locations[df$i, , drop = F] - locations[df$j, , drop = F])^2
+        (locations[df$i, , drop = FALSE] - locations[df$j, , drop = FALSE])^2
       ))
       df
     })
 
     begin.df <- dplyr::bind_rows(dists.between.bins)
     ord <- utils::head(order(begin.df$dist), amnt.edges)
-    begin.df <- begin.df[ord, 1:2, drop = F]
+    begin.df <- begin.df[ord, 1:2, drop = FALSE]
     current.df <- begin.df
     operations.df <- data.frame(
       type = factor(NULL, levels = c("ADD", "REM")),
@@ -153,9 +153,10 @@ generate.geometric <- function(
             i = binned.idx[[bin.i]],
             j = unlist(binned.idx[check.bins[[bin.i]] + 1])
           )
-          df <- df[df$i < df$j, , drop = F]
+          df <- df[df$i < df$j, , drop = FALSE]
           df$dist <- sqrt(rowSums(
-            (locations[df$i, , drop = F] - locations[df$j, , drop = F])^2
+            (locations[df$i, , drop = FALSE] -
+              locations[df$j, , drop = FALSE])^2
           ))
           df
         }
@@ -163,7 +164,7 @@ generate.geometric <- function(
 
       new.df <- dplyr::bind_rows(dists.between.bins)
       ord <- utils::head(order(new.df$dist), amnt.edges)
-      new.df <- new.df[ord, 1:2, drop = F]
+      new.df <- new.df[ord, 1:2, drop = FALSE]
 
       tmp.new.df <- new.df
       tmp.new.df$ADD <- TRUE
@@ -174,7 +175,7 @@ generate.geometric <- function(
       new.operations <- new.operations[
         is.na(new.operations$ADD) != is.na(new.operations$REM),
         ,
-        drop = F
+        drop = FALSE
       ]
       new.operations$type <- factor(
         ifelse(is.na(new.operations$ADD), "REM", "ADD"),
@@ -207,7 +208,7 @@ generate.barabasialbert <- function(
   amnt.edges,
   amnt.operations,
   offset.exponent = 1,
-  trace = T
+  trace = TRUE
 ) {
   if (round(amnt.edges / amnt.nodes) != amnt.edges / amnt.nodes)
     stop("the amount of edges needs to be a multiple of the amount of nodes.")
@@ -284,7 +285,7 @@ generate.barabasialbert <- function(
         w <- net$degree[poss.neighs]
         w <- (w / sum(w))
         w <- w^offset.exponent
-        neighs <- sample(poss.neighs, size = m, replace = F, prob = w)
+        neighs <- sample(poss.neighs, size = m, replace = FALSE, prob = w)
         for (j in neighs) {
           net <- add.edge(net, i, j)
         }
@@ -351,7 +352,7 @@ generate.erdosrenyi <- function(
   amnt.nodes,
   amnt.edges,
   amnt.operations,
-  trace = T
+  trace = TRUE
 ) {
   if (amnt.edges > amnt.nodes * (amnt.nodes - 1) / 2)
     stop(
@@ -362,7 +363,7 @@ generate.erdosrenyi <- function(
     system.time({
       v <- sapply(1:(amnt.nodes - 1), function(i) i * (i + 1) / 2)
       max.x <- max(v)
-      xs <- sample(1:max.x, amnt.edges, replace = F)
+      xs <- sample(1:max.x, amnt.edges, replace = FALSE)
 
       edges <- dplyr::bind_rows(lapply(xs, function(x) {
         i <- min(which(v >= x)) + 1
@@ -377,12 +378,12 @@ generate.erdosrenyi <- function(
     system.time({
       operations <- data.frame(type = character(), i = numeric(), j = numeric())
       while (nrow(operations) < amnt.operations) {
-        rem.y <- sample(1:length(xs), 1)
+        rem.y <- sample(seq_len(xs), 1)
         operations <- rbind(operations, data.frame(op = "REM", edges[rem.y, ]))
         edges <- edges[-rem.y, ]
         xs <- xs[-rem.y]
 
-        add.y <- sample((1:max.x)[-xs], 1)
+        add.y <- sample(seq_len(max.x)[-xs], 1)
         i <- min(which(v >= add.y)) + 1
         j <- add.y - ifelse(i > 2, v[[i - 2]], 0)
         edge <- data.frame(i = i, j = j)

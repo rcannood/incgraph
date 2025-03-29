@@ -5,7 +5,7 @@ network.check <- function(network) {
     stop("network must be created by new.network or matrix.as.network.")
 }
 node.id.check <- function(network, i, var.name) {
-  if (i <= 0 | network$amnt.nodes < i)
+  if (i <= 0 || network$amnt.nodes < i)
     stop(var.name, " must have a value between 1 and ", network$amnt.nodes)
 }
 amnt.nodes.check <- function(amnt.nodes) {
@@ -245,7 +245,7 @@ orca.halfdelta <- function(network, i, j) {
   mat <- network.as.matrix(network)
   if (network$contains(i - 1, j - 1)) {
     filt <- (mat[, 1] == i & mat[, 2] == j) | (mat[, 1] == j & mat[, 2] == i)
-    mat <- mat[!filt, , drop = F]
+    mat <- mat[!filt, , drop = FALSE]
   } else {
     mat <- rbind(mat, c(i, j))
   }

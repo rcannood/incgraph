@@ -8,14 +8,14 @@
 \title{Generate a dynamic network}
 \usage{
 generate.dynamic.network(
-  model, amnt.nodes, amnt.edges, amnt.operations, trace = T, ...)
+  model, amnt.nodes, amnt.edges, amnt.operations, trace = TRUE, ...)
 
 generate.geometric(
   amnt.nodes,
   amnt.edges,
   amnt.operations,
   amnt.dimensions = 3,
-  trace = T
+  trace = TRUE
 )
 
 generate.barabasialbert(
@@ -23,10 +23,10 @@ generate.barabasialbert(
   amnt.edges,
   amnt.operations,
   offset.exponent = 1,
-  trace = T
+  trace = TRUE
 )
 
-generate.erdosrenyi(amnt.nodes, amnt.edges, amnt.operations, trace = T)
+generate.erdosrenyi(amnt.nodes, amnt.edges, amnt.operations, trace = TRUE)
 }
 \arguments{
 \item{model}{The network model with which to generate the network; \code{"BA"} for Barabási–Albert, \code{"ER"} for Erdős–Rényi, or \code{"GEO"} for geometric}

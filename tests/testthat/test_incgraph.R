@@ -2,7 +2,7 @@ test_that("Simple test", {
   links <- data.frame(
     from = c(1, 1, 1, 1, 1, 1, 2, 2, 2, 2),
     to = c(2, 3, 4, 5, 6, 7, 7, 8, 9, 10)
-  ) %>%
+  ) |>
     as.matrix()
 
   net <- new.incgraph.network(links = links)
@@ -66,29 +66,29 @@ test_that("Simple test", {
   should_be_links <- data.frame(
     from = c(1, 1, 1, 1, 1, 2, 2, 2, 2, 5, 6),
     to = c(2, 3, 4, 6, 7, 7, 8, 9, 10, 10, 10)
-  ) %>%
+  ) |>
     as.matrix()
   pa.new <- c(
     paste0(newmat[, 1], "|", newmat[, 2]),
     paste0(newmat[, 2], "|", newmat[, 1])
-  ) %>%
-    sort
+  ) |>
+    sort()
   pa.orig <- c(
     paste0(should_be_links[, 1], "|", should_be_links[, 2]),
     paste0(should_be_links[, 2], "|", should_be_links[, 1])
-  ) %>%
-    sort
+  ) |>
+    sort()
 
   expect_equal(pa.new, pa.orig)
 
   # Get all neighbours of a node
   for (i in seq_len(10)) {
-    neighs <- get.neighbours(net, i) %>% sort
+    neighs <- get.neighbours(net, i) |> sort()
     should_be_neighs <- c(
       should_be_links[should_be_links[, 1] == i, 2],
       should_be_links[should_be_links[, 2] == i, 1]
-    ) %>%
-      sort %>%
+    ) |>
+      sort() |>
       setNames(NULL)
     expect_equal(neighs, should_be_neighs)
   }

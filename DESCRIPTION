@@ -21,8 +21,7 @@ Imports:
     dplyr,
     methods,
     Rcpp (>= 0.11.4),
-    orca,
-    purrr,
+    orca
 Suggests:
     testthat (>= 3.0.0)
 LinkingTo: Rcpp, BH
