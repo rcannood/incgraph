@@ -23,11 +23,12 @@ Imports:
     Rcpp (>= 0.11.4),
     orca,
     purrr,
-    testthat,
-    tibble
+Suggests:
+    testthat (>= 3.0.0)
 LinkingTo: Rcpp, BH
 Encoding: UTF-8
 URL: http://www.github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
 RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
