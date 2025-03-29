@@ -70,6 +70,7 @@ IncGraph: incremental graphlet counting for network optimisation. Under submissi
 \code{\link[=new.incgraph.network]{new.incgraph.network()}}, \code{\link[=calculate.orbit.counts]{calculate.orbit.counts()}}, \code{\link[=calculate.delta]{calculate.delta()}}
 }
 \author{
-Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
+\strong{Maintainer}: Robrecht Cannoodt \email{rcannood@gmail.com} (\href{https://orcid.org/0000-0003-3641-729X}{ORCID}) (rcannood)
+
 }
 \keyword{internal}

@@ -53,7 +53,6 @@
 #' reset(net)
 #' network.as.matrix(net)
 #'
-#' @author Cannoodt Robrecht, \email{robrecht.cannoodt@@gmail.com}
 #' @references Cannoodt, R. et al. (2017)
 #' IncGraph: incremental graphlet counting for network optimisation. Under submission.
 #'
