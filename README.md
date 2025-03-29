@@ -1,21 +1,26 @@
-incgraph
-========
+# incgraph
 
-[![Build Status](https://travis-ci.org/rcannood/incgraph.png?branch=master)](https://travis-ci.org/rcannood/incgraph)
 
-incgraph incrementally calculates the differences in orbit counts when performing single edge modifications in a network. For evolving networks, calculating the differences in orbit counts is much more performant than recalculating all orbit counts from scratch for each time point.
+<!-- badges: start -->
 
-Install
--------
+[![R-CMD-check](https://github.com/rcannood/incgraph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rcannood/incgraph/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
-incgraph currently needs to be installed using devtools. When building for Windows, the correct version of Rtools also needs to be installed.
+incgraph incrementally calculates the differences in orbit counts when
+performing single edge modifications in a network. For evolving
+networks, calculating the differences in orbit counts is much more
+performant than recalculating all orbit counts from scratch for each
+time point.
+
+## Installation
+
+Install incgraph from CRAN with:
 
 ``` r
-devtools::install_github("rcannood/incgraph")
+install.packages("incgraph")
 ```
 
-Examples
---------
+## Examples
 
 Create a new (empty) network with 4 nodes
 
@@ -79,7 +84,8 @@ flip(net, 1, 5)  # remove (1, 5)
 delta3 <- calculate.delta(net, 1, 5)
 ```
 
-Verify that the new orbit counts equals the old orbit counts plus the delta counts
+Verify that the new orbit counts equals the old orbit counts plus the
+delta counts
 
 ``` r
 new.orb.counts.incremental <- orb.counts + 
@@ -90,10 +96,9 @@ new.orb.counts <- calculate.orbit.counts(net)
 all(new.orb.counts.incremental == new.orb.counts) # TRUE
 ```
 
-    ## [1] TRUE
+    [1] TRUE
 
-Examples of additional helper functions
----------------------------------------
+## Examples of additional helper functions
 
 Transform the network to a matrix
 
@@ -101,14 +106,14 @@ Transform the network to a matrix
 network.as.matrix(net)
 ```
 
-    ##      [,1] [,2]
-    ## [1,]    1    2
-    ## [2,]    1    5
-    ## [3,]    2    7
-    ## [4,]    3    7
-    ## [5,]    4    8
-    ## [6,]    5    9
-    ## [7,]    5   10
+         [,1] [,2]
+    [1,]    1    2
+    [2,]    1    5
+    [3,]    2    7
+    [4,]    3    7
+    [5,]    4    8
+    [6,]    5    9
+    [7,]    5   10
 
 Get all neighbours of a node
 
@@ -116,7 +121,7 @@ Get all neighbours of a node
 get.neighbours(net, 1)
 ```
 
-    ## [1] 0 1 4
+    [1] 1 2 5
 
 Does the network contain a specific interaction?
 
@@ -124,13 +129,13 @@ Does the network contain a specific interaction?
 contains(net, 5, 10)
 ```
 
-    ## [1] TRUE
+    [1] TRUE
 
 ``` r
 contains(net, 7, 10)
 ```
 
-    ## [1] FALSE
+    [1] FALSE
 
 Reinitialise to an empty network
 
@@ -139,4 +144,4 @@ reset(net)
 network.as.matrix(net)
 ```
 
-    ##      [,1] [,2]
+         [,1] [,2]
