@@ -9,13 +9,15 @@ node.id.check <- function(network, i, var.name) {
     stop(var.name, " must have a value between 1 and ", network$amnt.nodes)
 }
 amnt.nodes.check <- function(amnt.nodes) {
-  if (amnt.nodes < 1)
-    stop("The network must contain at least 1 node.")
+  if (amnt.nodes < 1) stop("The network must contain at least 1 node.")
 }
 links.check <- function(links, amnt.nodes) {
   if (!all(0 < links & links <= amnt.nodes))
-    stop("links must be a N-by-2 matrix with values between 1 and ", amnt.nodes,
-         ", each row representing one edge in the network.")
+    stop(
+      "links must be a N-by-2 matrix with values between 1 and ",
+      amnt.nodes,
+      ", each row representing one edge in the network."
+    )
 }
 
 
@@ -98,7 +100,7 @@ links.check <- function(links, amnt.nodes) {
 #' @seealso \code{\link{incgraph}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
 #'
 #' @export
-new.incgraph.network <- function(amnt.nodes=NULL, links=NULL) {
+new.incgraph.network <- function(amnt.nodes = NULL, links = NULL) {
   if (is.null(links) && is.null(amnt.nodes)) {
     stop("Either amnt.nodes or links need to be passed a value")
   }
@@ -106,7 +108,7 @@ new.incgraph.network <- function(amnt.nodes=NULL, links=NULL) {
     amnt.nodes <- max(links)
   }
   amnt.nodes.check(amnt.nodes)
-  network <- new (incgraph.network, amnt.nodes)
+  network <- new(incgraph.network, amnt.nodes)
   if (!is.null(links)) {
     set.network(network, links)
   }
@@ -147,9 +149,9 @@ reset <- function(network) {
 #' @export
 flip <- function(network, i, j) {
   network.check(network)
-  node.id.check(network, i, var.name="i")
-  node.id.check(network, j, var.name="j")
-  network$flip(i-1, j-1)
+  node.id.check(network, i, var.name = "i")
+  node.id.check(network, j, var.name = "j")
+  network$flip(i - 1, j - 1)
 }
 
 #' @title Set a given network to contain the given links
@@ -173,7 +175,7 @@ flip <- function(network, i, j) {
 set.network <- function(network, links) {
   network.check(network)
   links.check(links, network$amnt.nodes)
-  network$set.network(links-1)
+  network$set.network(links - 1)
 }
 
 #' @title Calculate orbit counts from scratch
@@ -182,7 +184,7 @@ set.network <- function(network, links) {
 #' \code{calculate.orbit.counts} calculates the orbit counts of the current network.
 #'
 #' @details
-#' The complete orbit counts is calcucated using the \code{\link{count5}} from the \code{orca} package.
+#' The complete orbit counts is calcucated using the [orca::count5()].
 #'
 #' Calling this method repeatedly becomes very inefficient for evolving networks. For evolving networks, the usage
 #' of \code{\link{calculate.delta}} is recommended.
@@ -211,11 +213,14 @@ calculate.orbit.counts <- function(network) {
   dim(elems) <- NULL
   elems <- unique(elems)
   map <- match(seq_len(amnt.nodes), elems)
-  new.mat <- apply(mat, c(1,2), function(x) map[x])
+  new.mat <- apply(mat, c(1, 2), function(x) map[x])
   orbit.counts <- orca::count5(new.mat)
-  do.call("rbind", lapply(map, function(x) {
-    if(is.na(x)) rep.int(0, 73) else orbit.counts[x,]
-  }))
+  do.call(
+    "rbind",
+    lapply(map, function(x) {
+      if (is.na(x)) rep.int(0, 73) else orbit.counts[x, ]
+    })
+  )
 }
 
 #' @title Modify edge
@@ -233,32 +238,34 @@ calculate.orbit.counts <- function(network) {
 #' @export
 orca.halfdelta <- function(network, i, j) {
   network.check(network)
-  node.id.check(network, i, var.name="i")
-  node.id.check(network, j, var.name="j")
+  node.id.check(network, i, var.name = "i")
+  node.id.check(network, j, var.name = "j")
 
   amnt.nodes <- network$amnt.nodes
   mat <- network.as.matrix(network)
-  if (network$contains(i-1, j-1)) {
-    filt <- (mat[,1] == i & mat[,2] == j) | (mat[,1] == j & mat[,2] == i)
-    mat <- mat[!filt,,drop=F]
+  if (network$contains(i - 1, j - 1)) {
+    filt <- (mat[, 1] == i & mat[, 2] == j) | (mat[, 1] == j & mat[, 2] == i)
+    mat <- mat[!filt, , drop = F]
   } else {
-    mat <- rbind(mat, c(i,j))
+    mat <- rbind(mat, c(i, j))
   }
 
   elems <- mat
   dim(elems) <- NULL
   elems <- unique(elems)
   map <- match(seq_len(amnt.nodes), elems)
-  new.mat <- apply(mat, c(1,2), function(x) map[x])
+  new.mat <- apply(mat, c(1, 2), function(x) map[x])
   orbit.counts <- orca::count5(new.mat)
-  do.call("rbind", lapply(map, function(x) {
-    if (is.na(x)) {
-      rep.int(0, 73)
-    } else {
-      orbit.counts[x,]
-    }
-  }))
-
+  do.call(
+    "rbind",
+    lapply(map, function(x) {
+      if (is.na(x)) {
+        rep.int(0, 73)
+      } else {
+        orbit.counts[x, ]
+      }
+    })
+  )
 }
 
 #' @title Calculate changes in orbit counts
@@ -288,11 +295,11 @@ orca.halfdelta <- function(network, i, j) {
 #' @export
 calculate.delta <- function(network, i, j) {
   network.check(network)
-  node.id.check(network, i, var.name="i")
-  node.id.check(network, j, var.name="j")
-  out <- network$calculate.delta(i-1, j-1)
-  colnames(out$add) <- paste0("O", seq_len(73)-1)
-  colnames(out$rem) <- paste0("O", seq_len(73)-1)
+  node.id.check(network, i, var.name = "i")
+  node.id.check(network, j, var.name = "j")
+  out <- network$calculate.delta(i - 1, j - 1)
+  colnames(out$add) <- paste0("O", seq_len(73) - 1)
+  colnames(out$rem) <- paste0("O", seq_len(73) - 1)
   out
 }
 
@@ -313,8 +320,8 @@ calculate.delta <- function(network, i, j) {
 #' @export
 get.neighbours <- function(network, i) {
   network.check(network)
-  node.id.check(network, i, var.name="i")
-  network$get.neighbours(i-1)+1
+  node.id.check(network, i, var.name = "i")
+  network$get.neighbours(i - 1) + 1
 }
 
 #' @title Contains
@@ -335,9 +342,9 @@ get.neighbours <- function(network, i) {
 #' @export
 contains <- function(network, i, j) {
   network.check(network)
-  node.id.check(network, i, var.name="i")
-  node.id.check(network, j, var.name="j")
-  network$contains(i-1, j-1)
+  node.id.check(network, i, var.name = "i")
+  node.id.check(network, j, var.name = "j")
+  network$contains(i - 1, j - 1)
 }
 
 #' @title Network as matrix
@@ -357,12 +364,16 @@ network.as.matrix <- function(network) {
   network.check(network)
   amnt.nodes <- network$amnt.nodes
   mat <-
-    do.call("rbind", sapply(seq_len(amnt.nodes-1)-1, function(i) {
-      right <- network$get.neighbours(i)
-      right <- right[right > i]
-      left <- rep.int(i, length(right))
-      cbind(left, right)
-    }))+1
+    do.call(
+      "rbind",
+      sapply(seq_len(amnt.nodes - 1) - 1, function(i) {
+        right <- network$get.neighbours(i)
+        right <- right[right > i]
+        left <- rep.int(i, length(right))
+        cbind(left, right)
+      })
+    ) +
+    1
   class(mat) <- "integer"
   colnames(mat) <- NULL
   mat

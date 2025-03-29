@@ -10,11 +10,21 @@
 generate.dynamic.network(
   model, amnt.nodes, amnt.edges, amnt.operations, trace = T, ...)
 
-generate.geometric(amnt.nodes, amnt.edges, amnt.operations,
-  amnt.dimensions = 3, trace = T)
+generate.geometric(
+  amnt.nodes,
+  amnt.edges,
+  amnt.operations,
+  amnt.dimensions = 3,
+  trace = T
+)
 
-generate.barabasialbert(amnt.nodes, amnt.edges, amnt.operations,
-  offset.exponent = 1, trace = T)
+generate.barabasialbert(
+  amnt.nodes,
+  amnt.edges,
+  amnt.operations,
+  offset.exponent = 1,
+  trace = T
+)
 
 generate.erdosrenyi(amnt.nodes, amnt.edges, amnt.operations, trace = T)
 }

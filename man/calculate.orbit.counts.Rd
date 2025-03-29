@@ -17,7 +17,7 @@ The value of \code{mat[i,j]} is the number of times node \code{i} has orbit \cod
 \code{calculate.orbit.counts} calculates the orbit counts of the current network.
 }
 \details{
-The complete orbit counts is calcucated using the \code{\link{count5}} from the \code{orca} package.
+The complete orbit counts is calcucated using the [orca::count5()].
 
 Calling this method repeatedly becomes very inefficient for evolving networks. For evolving networks, the usage
 of \code{\link{calculate.delta}} is recommended.
