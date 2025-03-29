@@ -1,7 +1,4 @@
 library(testthat)
-library(dplyr)
-
-Sys.setenv("R_TESTS" = "")
+library(incgraph)
 
 test_check("incgraph")
-

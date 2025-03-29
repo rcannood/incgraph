@@ -82,5 +82,5 @@ network.as.matrix(net)
 
 }
 \seealso{
-\code{\link{incgraph}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
+\code{\link[=incgraph]{incgraph()}}, \code{\link[=calculate.orbit.counts]{calculate.orbit.counts()}}, \code{\link[=calculate.delta]{calculate.delta()}}
 }

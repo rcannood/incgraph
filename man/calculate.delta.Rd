@@ -29,8 +29,5 @@ Cannoodt, R. et al. (2015) IncGraph: A graphlet-based approach for characterisin
 topological changes in evolving networks. Submitted to Bioinformatics.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
-}
-\author{
-Cannoodt Robrecht, \email{robrecht.cannoodt@gmail.com}
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

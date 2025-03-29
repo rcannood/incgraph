@@ -16,8 +16,8 @@ set.network(network, links)
 }
 \details{
 This first resets the network and adds all given links. For minor changes to the network,
-the usage of \code{\link{flip}} is recommended.
+the usage of \code{\link[=flip]{flip()}} is recommended.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

@@ -53,20 +53,19 @@
 #' reset(net)
 #' network.as.matrix(net)
 #'
-#' @author Cannoodt Robrecht, \email{robrecht.cannoodt@@gmail.com}
 #' @references Cannoodt, R. et al. (2017)
 #' IncGraph: incremental graphlet counting for network optimisation. Under submission.
 #'
-#' @seealso \code{\link{new.incgraph.network}}, \code{\link{calculate.orbit.counts}}, \code{\link{calculate.delta}}
+#' @seealso [new.incgraph.network()], [calculate.orbit.counts()], [calculate.delta()]
 #'
 #' @useDynLib incgraph
 #'
 #' @import methods
 #' @import Rcpp
-#' @import dplyr
-#' @import tibble
-#' @importFrom purrr %>% map map_df map_chr map_lgl map_int map_dbl keep set_names
 #'
-#' @docType package
-#' @name incgraph
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
 NULL
