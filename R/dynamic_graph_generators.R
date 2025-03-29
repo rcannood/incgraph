@@ -361,9 +361,9 @@ generate.erdosrenyi <- function(
 
   initialisation.t <-
     system.time({
-      v <- sapply(1:(amnt.nodes - 1), function(i) i * (i + 1) / 2)
+      v <- sapply(seq_len(amnt.nodes - 1), function(i) i * (i + 1) / 2)
       max.x <- max(v)
-      xs <- sample(1:max.x, amnt.edges, replace = FALSE)
+      xs <- sample.int(max.x, amnt.edges, replace = FALSE)
 
       edges <- dplyr::bind_rows(lapply(xs, function(x) {
         i <- min(which(v >= x)) + 1
@@ -378,7 +378,7 @@ generate.erdosrenyi <- function(
     system.time({
       operations <- data.frame(type = character(), i = numeric(), j = numeric())
       while (nrow(operations) < amnt.operations) {
-        rem.y <- sample(seq_len(xs), 1)
+        rem.y <- sample.int(length(xs), 1)
         operations <- rbind(operations, data.frame(op = "REM", edges[rem.y, ]))
         edges <- edges[-rem.y, ]
         xs <- xs[-rem.y]
