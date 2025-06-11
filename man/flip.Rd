@@ -17,5 +17,5 @@ flip(network, i, j)
 \code{flip} modifies an edge in the network. If it is contained in the network, it is removed from the network, otherwise it is added to the network.
 }
 \seealso{
-See \code{\link{new.incgraph.network}} for examples and usage.
+See \code{\link[=new.incgraph.network]{new.incgraph.network()}} for examples and usage.
 }

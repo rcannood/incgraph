@@ -1,21 +1,20 @@
 ---
 title: "incgraph"
-output:
-  md_document: 
-     variant: markdown_github
+format: gfm
 ---
 
-# incgraph
-
-[![Build Status](https://travis-ci.org/rcannood/incgraph.png?branch=master)](https://travis-ci.org/rcannood/incgraph)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/rcannood/incgraph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/rcannood/incgraph/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 incgraph incrementally calculates the differences in orbit counts when performing single edge modifications in a network. For evolving networks, calculating the differences in orbit counts is much more performant than recalculating all orbit counts from scratch for each time point.
 
-## Install
-incgraph currently needs to be installed using devtools. When building for Windows, the correct version of Rtools also needs to be installed.
+## Installation
 
-```{r eval=F}
-devtools::install_github("rcannood/incgraph")
+Install incgraph from CRAN with:
+
+```{r eval=FALSE}
+install.packages("incgraph")
 ```
 
 ## Examples

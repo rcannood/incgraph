@@ -1,13 +1,13 @@
 Package: incgraph
 Type: Package
 Title: Incremental Graphlet Counting for Network Optimisation
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(
     person(
       "Robrecht", "Cannoodt", 
       email = "rcannood@gmail.com", 
       role = c("aut", "cre"),
-      comment = c(ORCID = "0000-0003-3641-729X", github = "rcannood")
+      comment = c(ORCID = "0000-0003-3641-729X")
     )
   )
 Description: An efficient and incremental approach for calculating 
@@ -21,12 +21,13 @@ Imports:
     dplyr,
     methods,
     Rcpp (>= 0.11.4),
-    orca,
-    purrr,
-    testthat,
-    tibble
+    orca
+Suggests:
+    testthat (>= 3.0.0)
 LinkingTo: Rcpp, BH
 Encoding: UTF-8
-URL: http://www.github.com/rcannood/incgraph
+URL: https://github.com/rcannood/incgraph
 BugReports: https://github.com/rcannood/incgraph/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
